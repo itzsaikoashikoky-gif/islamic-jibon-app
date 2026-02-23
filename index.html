@@ -80,6 +80,15 @@
 <!-- হোম পেজ -->
 <div id="home-page">
     <header>
+        if (item.title.toLowerCase().includes(query) || item.content.toLowerCase().includes(query)) {
+    html += `
+        <div onclick="openPage('${item.pageId}');" style="margin:15px 0; padding:15px; background:#f1f8e9; border-radius:10px; border-left:5px solid var(--primary); cursor:pointer;">
+            <h4 style="margin:0 0 10px; color:var(--primary);">${item.title}</h4>
+            ${item.content}
+        </div>
+    `;
+    found = true;
+}
         <!-- সার্চ ফলাফল দেখানোর জায়গা – হোম পেজের উপরে -->
 <div id="searchResults" style="display:none; margin:20px 0; padding:15px; background:#fff; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1);">
     <h3 style="color:var(--primary); margin:0 0 15px; text-align:center;">সার্চ ফলাফল</h3>
@@ -305,8 +314,37 @@
         input.focus(); // অটো কার্সর আসবে
     }
     }
-    // সার্চ লজিক – ফলাফল হোম পেজের উপরে চলে আসবে
-document.getElementById('searchInput').addEventListener('input', function() {
+    const items = [
+    {
+        title: "সূরা আল-ফাতিহা",
+        pageId: "surah-page",  // এটা যোগ করো
+        content: `
+            <p class="ar" style="font-size:28px; line-height:2;">
+                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ ...
+            </p>
+            <p><b>উচ্চারণ:</b> বিসমিল্লাহির রাহমানির রাহীম...</p>
+            <p><b>অর্থ:</b> সকল প্রশংসা আল্লাহর জন্য...</p>
+        `
+    },
+    {
+        title: "ঘুমানোর দোয়া",
+        pageId: "dua-page",  // এটা যোগ করো
+        content: `
+            <p class="ar">اللَّهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا</p>
+            <p><b>উচ্চারণ:</b> আল্লাহুম্মা বিসমিকা আমুতু ওয়া আহইয়া।</p>
+            <p><b>অর্থ:</b> হে আল্লাহ! তোমার নামে আমি মরি এবং জীবিত হই।</p>
+        `
+    },
+    {
+        title: "হাদীস",
+        pageId: "hadith-page",  // এটা যোগ করো
+        content: `
+            <p>"যে ব্যক্তি আল্লাহ ও আখিরাতে বিশ্বাস করে, সে যেন ভালো কথা বলে অথবা চুপ থাকে।" (বুখারী ও মুসলিম)</p>
+        `
+    }
+    // আরও যোগ করতে চাইলে pageId দিয়ে যোগ করো
+]; 
+    document.getElementById('searchInput').addEventListener('input', function() {
     const query = this.value.toLowerCase().trim();
     const resultsDiv = document.getElementById('searchResults');
     const contentDiv = document.getElementById('resultsContent');
@@ -322,39 +360,17 @@ document.getElementById('searchInput').addEventListener('input', function() {
     let found = false;
     let html = '';
 
-    // তোমার কন্টেন্ট লিস্ট (আরও যোগ করতে পারো)
     const items = [
-        {
-            title: "সূরা আল-ফাতিহা",
-            content: `
-                <p class="ar" style="font-size:28px; line-height:2;">
-                    بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ ...
-                </p>
-                <p><b>উচ্চারণ:</b> বিসমিল্লাহির রাহমানির রাহীম...</p>
-                <p><b>অর্থ:</b> সকল প্রশংসা আল্লাহর জন্য...</p>
-            `
-        },
-        {
-            title: "ঘুমানোর দোয়া",
-            content: `
-                <p class="ar">اللَّهُمَّ بِاسْمِكَ أَمُوتُ وَأَحْيَا</p>
-                <p><b>উচ্চারণ:</b> আল্লাহুম্মা বিসমিকা আমুতু ওয়া আহইয়া।</p>
-                <p><b>অর্থ:</b> হে আল্লাহ! তোমার নামে আমি মরি এবং জীবিত হই।</p>
-            `
-        },
-        {
-            title: "হাদীস",
-            content: `
-                <p>"যে ব্যক্তি আল্লাহ ও আখিরাতে বিশ্বাস করে, সে যেন ভালো কথা বলে অথবা চুপ থাকে।" (বুখারী ও মুসলিম)</p>
-            `
-        }
-        // আরও সূরা/দোয়া যোগ করো যাতে সার্চে মিলে
+        { title: "সূরা আল-ফাতিহা", pageId: "surah-page", content: "..." },
+        { title: "ঘুমানোর দোয়া", pageId: "dua-page", content: "..." },
+        { title: "হাদীস", pageId: "hadith-page", content: "..." }
+        // তোমার আরও আইটেম যোগ করো
     ];
 
     items.forEach(item => {
         if (item.title.toLowerCase().includes(query) || item.content.toLowerCase().includes(query)) {
             html += `
-                <div style="margin:15px 0; padding:15px; background:#f8f9fa; border-radius:10px; border-left:5px solid var(--primary);">
+                <div onclick="openPage('${item.pageId}');" style="margin:15px 0; padding:15px; background:#f1f8e9; border-radius:10px; border-left:5px solid var(--primary); cursor:pointer;">
                     <h4 style="margin:0 0 10px; color:var(--primary);">${item.title}</h4>
                     ${item.content}
                 </div>
