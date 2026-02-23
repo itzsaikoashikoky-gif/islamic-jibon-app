@@ -116,15 +116,6 @@
     <div class="icon-btn" onclick="toggleSearch()">🔍</div>
     <div class="icon-btn" onclick="openPage('settings-page')">⚙️</div>
 </div> 
-    if (item.title.toLowerCase().includes(query) || item.content.toLowerCase().includes(query)) {
-    html += `
-        <div onclick="openPage('${item.pageId}');" style="margin 10px 0; padding:10px; background:#f1f8e9; border-radius:5px; border-left:2px solid var(--primary); cursor:pointer;">
-            <h4 style="margin:0 0 5px; color:var(--primary);">${item.title}</h4>
-            ${item.content}
-        </div>
-    `;
-    found = true;
-}    
     
 
 <!-- সার্চ ইনপুট (ক্লিক করলে দেখা যাবে) -->
