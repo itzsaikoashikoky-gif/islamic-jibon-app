@@ -34,6 +34,45 @@
         .placeholder { color:#555; font-style:italic; }
         .sunnah-list { list-style-type: none; padding: 0; }
         .sunnah-list li { background: #f9f9f9; margin: 10px 0; padding: 15px; border-radius: 10px; }
+        /* ডান দিকে গোলাকার আইকন + সার্চ বার */
+.header-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 10;
+}
+.icon-btn {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.icon-btn:hover {
+    background: rgba(255,255,255,0.45);
+}
+#searchInput {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    width: 220px;
+    padding: 10px 15px;
+    border-radius: 25px;
+    border: none;
+    font-size: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    background: white;
+    color: #222;
+                       }
     </style>
 </head>
 <body>
@@ -76,7 +115,14 @@
         </div>
     </div>
 </div>
+<!-- ডান দিকে গোলাকার সার্চ + সেটিংস আইকন -->
+<div class="header-right">
+    <div class="icon-btn" onclick="toggleSearch()">🔍</div>
+    <div class="icon-btn" onclick="openPage('settings-page')">⚙️</div>
+</div>
 
+<!-- সার্চ ইনপুট (ক্লিক করলে দেখা যাবে) -->
+<input type="text" id="searchInput" placeholder="সূরা, দোয়া, হাদিস সার্চ করুন...">
 <!-- সূরা পেজ -->
 <div id="surah-page" class="page-section">
     <button class="back-btn" onclick="closePage()">← ফিরে যান</button>
@@ -243,5 +289,12 @@
         if(needle) needle.style.transform = `rotate(${needleAngle}deg)`;
         const degreeDisp = document.getElementById('degree');
         if(degreeDisp) degreeDisp.textContent = heading + '°';
+    }
+    function toggleSearch() {
+    const input = document.getElementById('searchInput');
+    input.style.display = input.style.display === 'block' ? 'none' : 'block';
+    if (input.style.display === 'block') {
+        input.focus(); // অটো কার্সর আসবে
+    }
     }
 </script>
