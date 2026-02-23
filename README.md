@@ -1,2 +1,2 @@
 # islamic-jibon-app
-A app a good 👍 
+A app a good 👍 😊 
