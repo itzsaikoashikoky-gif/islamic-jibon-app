@@ -80,7 +80,7 @@
 <!-- হোম পেজ -->
 <div id="home-page">
     <header>
-        if (item.title.toLowerCase().includes(query) || item.content.toLowerCase().includes(query)) {
+    </div>  if (item.title.toLowerCase().includes(query) || item.content.toLowerCase().includes(query)) {
     html += `
         <div onclick="openPage('${item.pageId}');" style="margin:15px 0; padding:15px; background:#f1f8e9; border-radius:10px; border-left:5px solid var(--primary); cursor:pointer;">
             <h4 style="margin:0 0 10px; color:var(--primary);">${item.title}</h4>
@@ -88,8 +88,7 @@
         </div>
     `;
     found = true;
-}
-
+}    
     <div class="container">
         <div class="prayer-card">
             <p style="text-align:center; font-weight:700; color:var(--primary); margin-top:0;">📍 নামাজের সময় (Dhaka, ২২ ফেব্রুয়ারি ২০২৬)</p>
@@ -124,7 +123,9 @@
 <div class="header-right">
     <div class="icon-btn" onclick="toggleSearch()">🔍</div>
     <div class="icon-btn" onclick="openPage('settings-page')">⚙️</div>
-</div>
+</div> 
+
+    
 
 <!-- সার্চ ইনপুট (ক্লিক করলে দেখা যাবে) -->
 <input type="text" id="searchInput" placeholder="সূরা, দোয়া, হাদিস সার্চ করুন...">
