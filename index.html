@@ -297,4 +297,49 @@
         input.focus(); // অটো কার্সর আসবে
     }
     }
+    // সার্চ ফাংশন – কী লেখা হলো সেটা চেক করে ফলাফল দেখাবে
+document.getElementById('searchInput').addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+    const resultsDiv = document.getElementById('searchResults') || document.createElement('div');
+    
+    if (!document.getElementById('searchResults')) {
+        resultsDiv.id = 'searchResults';
+        resultsDiv.style.marginTop = '20px';
+        resultsDiv.style.padding = '15px';
+        resultsDiv.style.background = 'white';
+        resultsDiv.style.borderRadius = '10px';
+        resultsDiv.style.boxShadow = '0 4px 10px rgba(0,0,0,0.1)';
+        document.querySelector('#home-page .container').appendChild(resultsDiv);
+    }
+
+    if (query.length < 2) {
+        resultsDiv.innerHTML = '<p style="color:#777;">কিছু লিখুন...</p>';
+        return;
+    }
+
+    let found = false;
+    let html = '<h3 style="color:var(--primary);">সার্চ ফলাফল:</h3>';
+
+    // তোমার সব পেজ/টেক্সট চেক করা
+    const pages = [
+        { name: 'সূরা আল-ফাতিহা', text: 'আল-ফাতিহা বিসমিল্লাহির রাহমানির রাহীম' },
+        { name: 'ঘুমানোর দোয়া', text: 'আল্লাহুম্মা বিসমিকা আমুতু ওয়া আহইয়া' },
+        { name: 'হাদীস', text: 'যে ব্যক্তি আল্লাহ ও আখিরাতে বিশ্বাস করে ভালো কথা বলে' },
+        { name: 'সুন্নতি জীবন', text: 'ডান হাতে খাওয়া বিসমিল্লাহ বলা মিসওয়াক' }
+        // এখানে তোমার আরও সূরা, দোয়া, হাদিস যোগ করতে পারো
+    ];
+
+    pages.forEach(item => {
+        if (item.text.toLowerCase().includes(query)) {
+            html += `<p style="margin:10px 0; padding:10px; background:#f1f8e9; border-radius:8px;">${item.name} মিলেছে</p>`;
+            found = true;
+        }
+    });
+
+    if (!found) {
+        html += '<p style="color:#d32f2f;">কোনো ফলাফল পাওয়া যায়নি 😔</p>';
+    }
+
+    resultsDiv.innerHTML = html;
+});
 </script>
